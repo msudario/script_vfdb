@@ -9,14 +9,18 @@ import os
 parser = argparse.ArgumentParser(
     description='Bu')
 parser.add_argument('-csv', '--csv', metavar='', type=str, required=True,
-                    help='path to the vfdb_core.fasta')
+                    help='path to the vfdb_gene_count.csv')
 parser.add_argument('-fasta', '--fasta', metavar='', type=str, required=True,
-                    help='path to the vfdb_gene_count.csv (from panvita)')
+                    help='path to the vfdb_core.fasta (from panvita)')
+parser.add_argument('-o', '--output', metavar='', type=str, required=True,
+                    help='path to the output of the generated csv')
+
 
 args = parser.parse_args()
 
 folder_input = os.path.expanduser(f'{args.csv}')
 folder_input2 = os.path.expanduser(f'{args.fasta}')
+folder_output = os.path.expanduser(f'{args.output}') + "vfdb_script_results.csv"
 
 database_vfdb = pd.read_csv(f'{folder_input}', sep = ';')
 
@@ -103,7 +107,7 @@ data = {
 df = pd.DataFrame(data)
 
 # Salvar a tabela em um arquivo CSV
-df.to_csv("resultados_do_script.csv", index=False)
+df.to_csv(folder_output, index=False)
 
 
     
